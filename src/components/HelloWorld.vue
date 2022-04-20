@@ -19,7 +19,7 @@ const count = ref(0)
   <p>See <code>README.md</code> for more information.</p>
 
   <p>
-    <a href="https://vitejs.dev/guide/features.html" target="_blank">
+    <a class="text-yellow-300" href="https://vitejs.dev/guide/features.html" target="_blank">
       Vite Docs
     </a>
     |
@@ -33,20 +33,6 @@ const count = ref(0)
   </p>
 </template>
 
-<style scoped>
-a {
-  color: #42b983;
-}
+<style scoped lang="scss">
 
-label {
-  margin: 0 0.5em;
-  font-weight: bold;
-}
-
-code {
-  background-color: #eee;
-  padding: 2px 4px;
-  border-radius: 4px;
-  color: #304455;
-}
 </style>
