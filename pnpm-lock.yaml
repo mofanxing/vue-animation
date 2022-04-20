@@ -5,6 +5,7 @@ specifiers:
   autoprefixer: ^10.4.4
   eslint: ^8.13.0
   eslint-config-prettier: ^8.5.0
+  gsap: ^3.10.3
   husky: ^7.0.4
   lint-staged: ^12.3.8
   postcss: ^8.4.12
@@ -17,6 +18,7 @@ specifiers:
   vue-tsc: ^0.34.7
 
 dependencies:
+  gsap: registry.npmmirror.com/gsap/3.10.3
   vue: registry.npmmirror.com/vue/3.2.33
 
 devDependencies:
@@ -1272,6 +1274,12 @@ packages:
     dependencies:
       type-fest: registry.npmmirror.com/type-fest/0.20.2
     dev: true
+
+  registry.npmmirror.com/gsap/3.10.3:
+    resolution: {integrity: sha512-O4P5mC6awoo0uSemZ1kS1Nm52I4/3gC8gy6ws6VFXvR1KmA4oRlBY/ZI4+LWsH0MoSDZrpwNyF9FAkB37UTGVg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/gsap/-/gsap-3.10.3.tgz}
+    name: gsap
+    version: 3.10.3
+    dev: false
 
   registry.npmmirror.com/has-flag/4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/has-flag/-/has-flag-4.0.0.tgz}
