@@ -1,0 +1,284 @@
+<html>
+
+<head>
+  <title>Radio Box </title>
+  <style>
+    *,
+    *:before,
+    *:after {
+      box-sizing: border-box;
+      text-decoration: none;
+    }
+
+    @font-face {
+      font-family: itc-benguiat-condensed;
+      src: url(https://use.typekit.net/af/c8b670/00000000000000007735bc70/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff2"),
+        url(https://use.typekit.net/af/c8b670/00000000000000007735bc70/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff"),
+        url(https://use.typekit.net/af/c8b670/00000000000000007735bc70/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("opentype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: itc-s;
+      src: url('./bae5dc1cb5b7398d135249f5e3b83f3f.woff2');
+    }
+
+    body {
+      background-color: #c3a49f;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      margin: auto;
+      text-align: center;
+      background-color: #c3a49f;
+    }
+
+    .text {
+      margin-top: 50px;
+      font-family: itc-s;
+      color: cornsilk;
+    }
+
+    .container svg {
+
+      display: block;
+      margin: auto;
+      width: 50%;
+    }
+
+
+    button:hover {
+      cursor: pointer
+    }
+
+    button {
+      font-size: calc(.7rem + .5vw);
+      letter-spacing: .02em;
+      height: 2.58em;
+      width: 7.74em;
+      -webkit-box-pack: center;
+      border-color: transparent;
+      border-radius: 1.29em;
+      cursor: pointer;
+      position: relative;
+      outline: none;
+      background: transparent;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+
+    button:hover:before {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    button:before {
+      content: attr(data-hover);
+      position: absolute;
+      top: 1.1em;
+      left: 0;
+      width: 100%;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-weight: 600;
+      font-size: .8em;
+      opacity: 0;
+      color: #bc4749;
+      transform: translate(0, 150%);
+      transition: all .3s ease-in-out;
+    }
+
+    button:hover div {
+      opacity: 0;
+      transform: translate(0, -100%)
+    }
+
+    button div {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-weight: 600;
+      font-size: .8em;
+      color: #bc4749;
+      transition: all .3s ease-in-out;
+    }
+
+    button svg {
+      position: absolute;
+      width: 150%;
+      height: 200%;
+      top: -50%;
+      left: -25%;
+      z-index: -1;
+    }
+
+    .site-resource {
+      display: none;
+    }
+
+    path.fill-dgreen {
+      fill: #bc4749;
+      stroke: #bc4749;
+    }
+
+    path.fill-cookie-f {
+      fill: #dad7cd;
+      stroke: #dad7cd;
+    }
+
+    .site-bnr {
+      position: fixed;
+      top: 70%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      background: none;
+
+      padding: 10px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div id="mutebtn" class="site-bnr site-bnr-item enable">
+    <button onMouseEnter="onEnter(event)" class="button-body" data-hover="Play">
+      <div>Mute</div>
+      <svg viewBox="80 10 120 120">
+        <path d class="b fill-dgreen"></path>
+        <path d class="f fill-cookie-f"></path>
+
+      </svg>
+    </button>
+  </div>
+
+  <div class="site-resource">
+    <svg viewBox="0 0 280 140" class="button-svg-s">
+
+
+      <path
+        d="M245,70h0a35.1,35.1,0,0,1-35,35H70A35.1,35.1,0,0,1,35,70h0A35.1,35.1,0,0,1,70,35H210a35.1,35.1,0,0,1,35,35"
+        class="get-buttton-path"></path>
+    </svg>
+  </div>
+
+  <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js?r=5426'></script>
+
+  <script>
+    let svgButton = {
+      svg: null,
+      rect: null,
+      play: false,
+      front: null,
+      back: null,
+      path: null,
+      viewBox: null,
+      points: [],
+      sort: [],
+      sort_by_x: [],
+      step: 8,
+      delay: .0015,
+      radius: 12,
+      tweens: []
+    };
+
+    onInit();
+
+    function onInit() {
+      svgButton.svg = document.querySelector(".button-svg-s");
+      svgButton.viewBox = svgButton.svg.getAttribute("viewBox");
+      svgButton.path = svgButton.svg.querySelector(".get-buttton-path");
+
+      for (var n = svgButton.path.getTotalLength(), r = svgButton.path.getPointAtLength(0), a = 0, o = 0; o < n; o += svgButton.step) {
+        console.log(o)
+        r = svgButton.path.getPointAtLength(o);
+        svgButton.points.push({ w: 0, x: r.x, y: r.y }),
+          svgButton.sort.push({ n: a, x: r.x, y: r.y }), a++
+      }
+      var s = svgButton.path.getPointAtLength(0);
+      svgButton.points.push({ w: 0, x: s.x, y: s.y }),
+        svgButton.sort.push({ n: a, x: s.x, y: s.y }),
+        svgButton.sort_by_x = object_array_sort(svgButton.sort, "x", "asc");
+      var d_value = "";
+      for (var i = 0; i < svgButton.points.length; i++) {
+        var point = svgButton.points[i],
+          s = point.x, l = point.y;
+        d_value += 0 === i ? "M ".concat(s, ",").concat(l, " ") : "L ".concat(s, ",").concat(l, " ")
+      }
+      var svg = document.querySelector(".button-body").querySelector("svg");
+      svgButton.front = svg.querySelector(".f");
+      svgButton.back = svg.querySelector(".b");
+      svgButton.front.setAttribute("d", d_value);
+      svgButton.back.setAttribute("d", d_value);
+      svgButton.rect = svgButton.front.getBoundingClientRect();
+    }
+
+
+    function onEnter(e) {
+      if (!svgButton.play) onWaveStart(e);
+    }
+
+    function onUpdate() {
+      if (svgButton.play) {
+        for (var d_value = "", i = 0; i < svgButton.points.length; i++) {
+          var point = svgButton.points[i],
+            s = point.x;
+          l = point.y + Math.sin(point.w / 180 * Math.PI) * svgButton.radius;
+          d_value += 0 === i ? "M ".concat(s, ",").concat(l, " ") : "L ".concat(s, ",").concat(l, " ")
+        }
+        svgButton.front.setAttribute("d", d_value)
+      }
+    }
+
+    function onWaveStart(e) {
+      var mousePosition = e.x - svgButton.rect.x - svgButton.rect.width / 2;
+      for (var i = 0; i < svgButton.sort_by_x.length; i++) {
+        svgButton.tweens[i] && svgButton.tweens[i].kill();
+      }
+      svgButton.tweens = [];
+      for (i = 0; i < svgButton.sort_by_x.length; i++) {
+        delay = i * svgButton.delay * svgButton.step;
+        var index = (mousePosition < 0 ? svgButton.sort_by_x[i] : svgButton.sort_by_x[svgButton.sort_by_x.length - 1 - i]).n;
+        var point = svgButton.points[index];
+        point.w = 0;
+        var object = gsap.to(point, {
+          duration: .4,
+          w: 360,
+          delay: delay,
+          onUpdate: function () {
+            svgButton.play = true;
+            onUpdate();
+          },
+          onComplete: function () {
+            svgButton.play = false;
+            this._targets[0].w = 0
+          }
+        });
+        svgButton.tweens.push(object);
+      }
+    }
+
+    function object_array_sort(t, e, i, n) {
+      var r = -1, a = 1;
+      return "asc" === i && (r = 1,
+        a = -1),
+        t.sort((function (t, i) {
+          var n = t[e], o = i[e];
+          return n > o ? r : n < o ? a : 0
+        }))
+    }
+
+
+
+
+
+  </script>
+</body>
+
+
+</html>
