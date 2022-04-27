@@ -5,7 +5,6 @@ import './utils/SplitText'
 import './utils/MorphSVGPlugin.min.js'
 
 import './assets/theme/scss/index.scss'
-gsap.registerPlugin(MorphSVGPlugin)
 window.gsap = gsap
 
 createApp(App).mount('#app')
